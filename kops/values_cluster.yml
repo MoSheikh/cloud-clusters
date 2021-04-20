@@ -1,0 +1,5 @@
+service: api
+environment: dev
+zone: us-east1-b
+region: us-east1
+regionTag: ue1

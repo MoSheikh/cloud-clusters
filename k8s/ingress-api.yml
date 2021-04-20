@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-api
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  defaultBackend:
+    service:
+      name: svc-api 
+      port:
+        name: https
+  tls:
+    - hosts:
+      - "api.dojolaunch.app"
+      - "*.api.dojolaunch.app"
+      secretName: tls-api
+  rules:
+    - http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: svc-api
+              port:
+                name: https
+

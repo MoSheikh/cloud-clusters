@@ -1,0 +1,59 @@
+apiVersion: kops.k8s.io/v1alpha2
+kind: Cluster
+metadata:
+  name: us-east1.dev.api.k8s.dojolaunch.app
+spec:
+  api:
+    dns: {}
+  authorization:
+    rbac: {}
+  certManager:
+    enabled: true
+  channel: stable
+  cloudConfig:
+    gceServiceAccount: master-ue1@dojolaunch-302702.iam.gserviceaccount.com
+  cloudProvider: gce
+  configBase: gs://devops.dojolaunch.app/kops/us-east1.dev.api.k8s.dojolaunch.app
+  containerRuntime: containerd
+  dnsZone: k8s.dojolaunch.app
+  etcdClusters:
+  - cpuRequest: 200m
+    etcdMembers:
+    - instanceGroup: master-us-east1-b
+      name: b
+      volumeType: pd-standard
+    memoryRequest: 100Mi
+    name: main
+  - cpuRequest: 100m
+    etcdMembers:
+    - instanceGroup: master-us-east1-b
+      name: b
+      volumeType: pd-standard
+    memoryRequest: 100Mi
+    name: events
+  iam:
+    allowContainerRegistry: true
+    legacy: false
+  kubelet:
+    anonymousAuth: false
+  kubernetesApiAccess:
+  - 0.0.0.0/0
+  kubernetesVersion: 1.20.2
+  masterPublicName: api.us-east1.dev.api.k8s.dojolaunch.app
+  metricsServer:
+    enabled: true
+  networking:
+    kubenet: {}
+  nonMasqueradeCIDR: 100.64.0.0/10
+  project: dojolaunch-302702
+  sshAccess:
+  - 0.0.0.0/0
+  subnets:
+  - name: us-east1
+    region: us-east1
+    type: Public
+  topology:
+    dns:
+      type: Public
+    masters: public
+    nodes: public

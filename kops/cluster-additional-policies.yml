@@ -1,0 +1,16 @@
+  additionalPolicies:
+    node: |
+      [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "autoscaling:DescribeAutoScalingGroups",
+            "autoscaling:DescribeAutoScalingInstances",
+            "autoscaling:DescribeLaunchConfigurations",
+            "autoscaling:DescribeTags",
+            "autoscaling:SetDesiredCapacity",
+            "autoscaling:TerminateInstanceInAutoScalingGroup"
+          ],
+          "Resource": "*"
+        }
+      ]

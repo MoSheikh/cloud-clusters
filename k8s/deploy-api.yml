@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep.dev.api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      name: pod.dev.api
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api-server
+        image: modojolaunch/dojolaunch-api:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: 1.1
+            memory: 3G
+      imagePullSecrets:
+        - name: docker

@@ -1,0 +1,43 @@
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: us-east1.dev.api.k8s.dojolaunch.app
+  name: master-us-east1-b
+spec:
+  image: debian-cloud/debian-10-buster-v20210122
+  machineType: e2-medium
+  maxSize: 1
+  minSize: 1
+  nodeLabels:
+    cloud.google.com/metadata-proxy-ready: "true"
+    kops.k8s.io/instancegroup: master-us-east1-b
+  role: Master
+  rootVolumeSize: 20
+  subnets:
+  - us-east1
+  zones:
+  - us-east1-b
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: us-east1.dev.api.k8s.dojolaunch.app
+  name: nodes-us-east1-b
+spec:
+  image: debian-cloud/debian-10-buster-v20210122
+  machineType: e2-medium
+  maxSize: 1
+  minSize: 1
+  nodeLabels:
+    cloud.google.com/metadata-proxy-ready: "true"
+    kops.k8s.io/instancegroup: nodes-us-east1-b
+  role: Node
+  rootVolumeSize: 20
+  subnets:
+  - us-east1
+  zones:
+  - us-east1-b

@@ -1,0 +1,32 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt
+spec:
+  acme:
+    email: mo@dojolaunch.app
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef: 
+      name: letsencrypt-mo      
+    solvers:
+    - dns01:
+        cloudDNS:
+          project: dojolaunch-302702
+          serviceAccountSecretRef:
+            name: sa-master
+            key: sa-master-key.json
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cert-api
+spec:
+  secretName: tls-api
+  dnsNames:
+    - "api.dojolaunch.app"
+    - "*.api.dojolaunch.app"
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
